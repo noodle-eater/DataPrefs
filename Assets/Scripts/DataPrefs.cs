@@ -96,6 +96,9 @@ namespace DataPreferences {
 			_pairWrapper.pairs.Add(new Pair() { key = key, value = value});
 		}
 
+		// TODO:
+		// Check if data exist & Overwrite it
+
 		private string GetData(string key) {
 			string value = string.Empty;
 			foreach(var pair in _pairWrapper.pairs) {
