@@ -43,7 +43,7 @@ public class DataPrefsTest {
 	[Test]
 	public void HasKeyTest() {
 		DataPrefs.Instance.SetBool("Active", true);
-
+		Debug.Log(DataPrefs.Instance.GetBool("Active"));
 		Assert.AreSame(true, DataPrefs.Instance.HasKey("Active"));
 	}
 }
