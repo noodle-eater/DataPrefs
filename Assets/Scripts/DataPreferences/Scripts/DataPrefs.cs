@@ -76,6 +76,10 @@ namespace DataPreferences {
 			return _manager.HasKey(key);
 		}
 		#endregion
+
+		public List<string> GetAllKeys() {
+			return _manager.GetAllKeys();
+		}
 		
 	}
 }

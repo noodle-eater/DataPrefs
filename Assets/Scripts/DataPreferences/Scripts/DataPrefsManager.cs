@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace DataPreferences {
     
     internal sealed class DataPrefsManager {
@@ -7,6 +9,8 @@ namespace DataPreferences {
 
         internal DataPrefsManager() {
             _dataIO = new TextDataIO("DataPrefs_savefile.json");
+
+			Load();
         }
 
         internal void SetData(string key, string value) {
@@ -50,8 +54,22 @@ namespace DataPreferences {
 			return false;
 		}
 
+		internal List<string> GetAllKeys() {
+			var keys = new List<string>();
+			
+			foreach (var pair in _pairWrapper.pairs) {
+				keys.Add(pair.key);
+			}
+
+			return keys;
+		}
+
         internal void Save() {
             _dataIO.Write(_pairWrapper);
         }
+
+		internal void Load() {
+			_pairWrapper = _dataIO.Read();
+		}
     }
 }
