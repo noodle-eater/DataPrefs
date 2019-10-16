@@ -8,6 +8,6 @@ namespace DataPreferences {
 
 		[System.Serializable]
 		internal class PairWrapper {
-			public System.Collections.Generic.IList<Pair> pairs = new System.Collections.Generic.List<Pair>();
+			public System.Collections.Generic.List<Pair> pairs = new System.Collections.Generic.List<Pair>();
 		}
 }

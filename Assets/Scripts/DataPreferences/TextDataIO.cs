@@ -15,6 +15,7 @@ namespace DataPreferences {
 
         public void Write(PairWrapper data) {
             string json = UnityEngine.JsonUtility.ToJson(data, true);
+            UnityEngine.Debug.Log(json);
             System.IO.File.WriteAllText(UnityEngine.Application.persistentDataPath + "/" + _fileName, json);
         }
     }

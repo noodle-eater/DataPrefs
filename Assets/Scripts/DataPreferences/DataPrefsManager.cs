@@ -5,6 +5,10 @@ namespace DataPreferences {
         private IDataIO<PairWrapper> _dataIO;
         private PairWrapper _pairWrapper = new PairWrapper();
 
+        internal DataPrefsManager() {
+            _dataIO = new TextDataIO("DataPrefs_savefile.json");
+        }
+
         internal void SetData(string key, string value) {
 			if(HasKey(key)) {
 				OverwriteData(key, value);
@@ -12,22 +16,6 @@ namespace DataPreferences {
                 AddData(key, value);
             }
         }
-
-        internal DataPrefsManager() {
-            _dataIO = new TextDataIO("DataPrefs_savefile.json");
-        }
-
-        internal void AddData(string key, string value) {
-            _pairWrapper.pairs.Add(new Pair() { key = key, value = value });
-        }
-
-        internal void OverwriteData(string key, string value) {
-			foreach(var pair in _pairWrapper.pairs) {
-				if(pair.key == key) {
-					pair.value = value;
-				}
-			}
-		}
 
 		internal string GetData(string key) {
 			string value = string.Empty;
@@ -39,6 +27,18 @@ namespace DataPreferences {
 			}
 
 			return value;
+		}
+
+        internal void AddData(string key, string value) {
+            _pairWrapper.pairs.Add(new Pair() { key = key, value = value });
+        }
+
+        internal void OverwriteData(string key, string value) {
+			foreach(var pair in _pairWrapper.pairs) {
+				if(pair.key == key) {
+					pair.value = value;
+				}
+			}
 		}
 
         internal bool HasKey(string key) {
