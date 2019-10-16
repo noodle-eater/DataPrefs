@@ -9,7 +9,7 @@ namespace DataPreferences {
 		#region Field
 		private static DataPrefs _instance = null;
 		private static readonly object padlock = new object();
-		private PairWrapper _pairWrapper = new PairWrapper();
+		private DataPrefsManager _manager = new DataPrefsManager();
 
 		public static DataPrefs Instance {
 			get {
@@ -25,11 +25,11 @@ namespace DataPreferences {
 
 		#region Public Method
 		public void SetInt(string key, int value) {
-			SetData(key, value.ToString());
+			_manager.SetData(key, value.ToString());
 		}
 
 		public int GetInt(string key) {
-			string value = GetData(key);
+			string value = _manager.GetData(key);
 			
 			if(string.IsNullOrEmpty(value))
 				return 0;
@@ -37,11 +37,11 @@ namespace DataPreferences {
 		}
 
 		public void SetFloat(string key, float value) {
-			SetData(key, value.ToString());
+			_manager.SetData(key, value.ToString());
 		}
 
 		public float GetFloat(string key) {
-			string value = GetData(key);
+			string value = _manager.GetData(key);
 			
 			if(string.IsNullOrEmpty(value))
 				return 0f;
@@ -49,19 +49,19 @@ namespace DataPreferences {
 		}
 
 		public void SetString(string key, string value) {
-			SetData(key, value.ToString());
+			_manager.SetData(key, value.ToString());
 		}
 
 		public string GetString(string key) {
-			return GetData(key);
+			return _manager.GetData(key);
 		}
 
 		public void SetBool(string key, bool value) {
-			SetData(key, value.ToString());
+			_manager.SetData(key, value.ToString());
 		}
 
 		public bool GetBool(string key) {
-			string value = GetData(key);
+			string value = _manager.GetData(key);
 			
 			if(value == "false")
 				return false;
@@ -69,56 +69,13 @@ namespace DataPreferences {
 		}
 
 		public void Save() {
-			string json = JsonUtility.ToJson(_pairWrapper, true);
-			Debug.Log(json);
+			_manager.Save();
 		}
 
 		public bool HasKey(string key) {
-			foreach(var pair in _pairWrapper.pairs) {
-				if(pair.key == key) {
-					return true;
-				}
-			}
-			return false;
+			return _manager.HasKey(key);
 		}
 		#endregion
-
-		#region Private Method
-		private void SetData(string key, string value) {
-			if(HasKey(key)) {
-				OverwriteData(key, value);
-			} else {
-                AddData(key, value);
-            }
-        }
-
-        private void AddData(string key, string value) {
-            _pairWrapper.pairs.Add(new Pair() { key = key, value = value });
-        }
-
-        private void OverwriteData(string key, string value) {
-			foreach(var pair in _pairWrapper.pairs) {
-				if(pair.key == key) {
-					pair.value = value;
-				}
-			}
-		}
-
-		// TODO:
-		// Check if data exist & Overwrite it
-
-		private string GetData(string key) {
-			string value = string.Empty;
-			foreach(var pair in _pairWrapper.pairs) {
-				if(pair.key == key) {
-					value = pair.value;
-					break;
-				}
-			}
-
-			return value;
-		}
-		#endregion
-
+		
 	}
 }
