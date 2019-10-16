@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using DataPreferences;
 
@@ -10,7 +8,8 @@ public class DataPrefsExample : MonoBehaviour {
 	public InputField valueField;
 	public Text data;
 
-	// Use this for initialization
+	// TODO:
+	// Save file is empty
 	void Start () {
 		DataPrefs.Instance.SetInt ("Score", 100);
 		DataPrefs.Instance.SetFloat ("Modifier", 5.5f);
@@ -23,6 +22,8 @@ public class DataPrefsExample : MonoBehaviour {
 		Debug.Log ("Description : " + DataPrefs.Instance.GetString("Description"));
 		DataPrefs.Instance.SetString ("Description", "A legendary sword with stick");
 		Debug.Log ("Description : " + DataPrefs.Instance.GetString("Description"));
+
+		DataPrefs.Instance.Save();
 	}
 
 	public void SaveInt() {
